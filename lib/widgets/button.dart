@@ -28,7 +28,7 @@ class CButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: BoxDecoration(
           color: buttonColor ?? Config.colors.primaryColor,
           border: Border.all(
@@ -43,36 +43,40 @@ class CButton extends StatelessWidget {
                 child: Row(
               children: [
                 Container(
-                  margin: const EdgeInsets.only(right: 10),
+                  margin: const EdgeInsets.only(right: 15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Config.colors.primaryColor,
                   ),
-                  height: 70,
-                  width: 70,
+                  height: 60,
+                  width: 60,
                   child: Icon(
                     icon,
-                    size: 50,
+                    size: 40,
                     color: Colors.white,
                   ),
                 ),
                 Container(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AutoSizeText(
                         buttonText,
                         style: TextStyle(
                             color: textColor,
                             fontSize: 20,
-                            fontWeight: FontWeight.bold),
+                            fontFamily: "Nunito",
+                            fontWeight: FontWeight.w900),
                         minFontSize: 5.0,
                       ),
+                      const SizedBox(height: 5),
                       AutoSizeText(
                         buttonText2,
                         style: TextStyle(
                             color: textColor,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w400),
+                            fontSize: 15,
+                            fontFamily: "Nunito",
+                            fontWeight: FontWeight.w600),
                         minFontSize: 5.0,
                       ),
                     ],
