@@ -14,4 +14,5 @@ class _Color {
 class _Asset {
   final plat = "assets/images/plat.png";
   final logo = "assets/images/logo_splash.png";
+  final flag = "assets/images/armoiries_cmr.svg";
 }

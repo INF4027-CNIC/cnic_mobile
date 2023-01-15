@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: "Cameroon National Id Card",
       theme: ThemeData(
         primaryColor: Color.fromARGB(255, 1, 36, 3),
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
       home: Home(),
