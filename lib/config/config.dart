@@ -4,6 +4,7 @@ class Config {
   static final colors = _Color();
   static final assets = _Asset();
   static String flag = "assets/images/flag.jpg";
+  static String arms = "assets/images/Coat_of_arms_of_Cameroon.svg.png";
 }
 
 class _Color {
