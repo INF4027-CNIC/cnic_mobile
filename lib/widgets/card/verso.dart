@@ -33,7 +33,8 @@ class VersoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      width: 380,
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(Config.arms),
@@ -48,9 +49,66 @@ class VersoCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [],
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InfoTile(label: "PÈRE/FATHER", value: pere),
+                  InfoTile(label: "MÈRE/MOTHER", value: mere),
+                  const SizedBox(height: 7),
+                  InfoTile(label: "AUTORITÉ/AUTHORITY", value: autorite),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InfoTile(label: "S.P/S.M", value: sp),
+                  InfoTile(label: "ADRESSE/ADDRESS", value: adresse),
+                  Text(
+                    telephone,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 7),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InfoTile(
+                      label: "DATE DE DELIVRANCE/\nDATE OF ISSUE",
+                      value: dateDeliv),
+                  InfoTile(
+                      label: "DATE D\'EXPIRATION/\nDATE OF EXPIRY",
+                      value: dateExp),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InfoTile(
+                      label: "POSTE D\'IDENTIFICATION/\nIDENTIFICATION POST",
+                      value: poste),
+                  InfoTile(
+                      label: "IDENTIFIANT UNIQUE/\nUNIQUE IDENTIFIER",
+                      value: id),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 7),
+          Center(child: Text(id_2)),
+        ],
       ),
     );
   }

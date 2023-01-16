@@ -25,6 +25,7 @@ class RectoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 385,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         image: DecorationImage(

@@ -122,12 +122,13 @@ class _HomeState extends State<Home> {
                     backgroundColor: Config.colors.primaryColor),
                 child: const Text("NEXT"),
               )
-              // TextButton(onPressed: submit, child: const Text("Save")),
             ],
           ));
 
   void submit() {
     print(_code);
     Navigator.of(context).pop();
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const CardUI()));
   }
 }

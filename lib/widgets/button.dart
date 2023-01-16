@@ -66,7 +66,7 @@ class CButton extends StatelessWidget {
                             color: textColor,
                             fontSize: 20,
                             fontFamily: "Nunito",
-                            fontWeight: FontWeight.w900),
+                            fontWeight: FontWeight.w700),
                         minFontSize: 5.0,
                       ),
                       const SizedBox(height: 5),

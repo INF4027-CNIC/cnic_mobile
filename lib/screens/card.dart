@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:cnic/config/config.dart';
 import 'package:cnic/widgets/card/recto.dart';
 import 'package:cnic/widgets/card/verso.dart';
+import 'package:cross_scroll/cross_scroll.dart';
 import 'package:flutter/material.dart';
 
 class CardUI extends StatelessWidget {
@@ -49,38 +50,41 @@ class CardUI extends StatelessWidget {
             )
           ],
         ),
-        body: SingleChildScrollView(
-          child: SafeArea(
+        body: CrossScroll(
+          child: SizedBox(
+              width: 410,
+              height: 800,
               child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Column(
-              children: [
-                RectoCard(
-                  nom: nom,
-                  prenom: prenom,
-                  lieuNais: lieuNais,
-                  sexe: sexe,
-                  taille: taille,
-                  profession: profession,
-                  photo: photo,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Column(
+                  children: [
+                    RectoCard(
+                      nom: nom,
+                      prenom: prenom,
+                      lieuNais: lieuNais,
+                      sexe: sexe,
+                      taille: taille,
+                      profession: profession,
+                      photo: photo,
+                    ),
+                    const SizedBox(height: 10),
+                    VersoCard(
+                      mere: mere,
+                      pere: pere,
+                      sp: sp,
+                      adresse: adresse,
+                      telephone: telephone,
+                      autorite: autorite,
+                      dateDeliv: dateDeliv,
+                      dateExp: dateExp,
+                      poste: poste,
+                      id: id,
+                      id_2: id_2,
+                    )
+                  ],
                 ),
-                const SizedBox(height: 10),
-                VersoCard(
-                  mere: mere,
-                  pere: pere,
-                  sp: sp,
-                  adresse: adresse,
-                  telephone: telephone,
-                  autorite: autorite,
-                  dateDeliv: dateDeliv,
-                  dateExp: dateExp,
-                  poste: poste,
-                  id: id,
-                  id_2: id_2,
-                )
-              ],
-            ),
-          )),
+              )),
         ));
   }
 }
