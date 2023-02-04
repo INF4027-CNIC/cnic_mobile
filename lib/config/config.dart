@@ -8,7 +8,7 @@ class Config {
 }
 
 class _Color {
-  final primaryColor = Color(0xFF009D33);
+  final primaryColor = Color.fromARGB(255, 0, 157, 51);
   final secondColor = Color.fromARGB(255, 0, 0, 0);
   final thirdColor = Color.fromARGB(255, 255, 255, 255);
   final bgTextColor = Color(0xFFDFFFCA);

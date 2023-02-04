@@ -68,7 +68,7 @@ class InfoTile extends StatelessWidget {
           style: TextStyle(
             color: Config.colors.primaryColor,
             fontWeight: FontWeight.bold,
-            fontSize: 9.5,
+            fontSize: 8.5,
           ),
         ),
         const SizedBox(height: 3),
@@ -77,6 +77,7 @@ class InfoTile extends StatelessWidget {
           style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
+            fontSize: 12,
           ),
         ),
         const SizedBox(height: 7),

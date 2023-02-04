@@ -51,13 +51,15 @@ class CardUI extends StatelessWidget {
           ],
         ),
         body: CrossScroll(
+          dimColor: Colors.transparent,
+          hoverColor: Colors.transparent,
           child: SizedBox(
-              width: 410,
-              height: 800,
+              width: 370,
+              height: 700,
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: const EdgeInsets.only(left: 15),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     RectoCard(
                       nom: nom,

@@ -1,5 +1,5 @@
 import 'package:cnic/config/config.dart';
-import 'package:cnic/widgets/card/component.dart';
+import 'package:cnic/widgets/card/components.dart';
 import 'package:flutter/material.dart';
 
 class VersoCard extends StatelessWidget {
@@ -33,8 +33,8 @@ class VersoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 380,
-      padding: const EdgeInsets.all(15),
+      width: 360,
+      padding: const EdgeInsets.only(left: 15, top: 10, right: 10, bottom: 10),
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(Config.arms),

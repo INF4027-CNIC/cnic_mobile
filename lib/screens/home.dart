@@ -1,23 +1,27 @@
 import 'package:cnic/config/config.dart';
-import 'package:cnic/screens/card.dart';
-import 'package:cnic/screens/scan.dart';
+import 'package:cnic/screens/card_ui.dart';
 import 'package:cnic/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  late TextEditingController controller;
+  // late TextEditingController controller;
   final TextEditingController codeController = TextEditingController();
 
   final _formCode = GlobalKey<FormState>();
   String _code = "";
+
+  var scannedQRCode = "QR Code result";
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,13 +49,12 @@ class _HomeState extends State<Home> {
             ),
             CButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const ScanPage()));
-                //scanConnexion();
+                scanQRCode();
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => const CardUI()));
               },
               icon: Icons.qr_code_scanner_outlined,
               buttonText: "Scan the QR Code",
-              buttonText2: "To view your CNI",
+              buttonText2: "to view your CNI",
               textColor: Config.colors.secondColor,
               buttonColor: Colors.transparent,
               borderColor: Colors.transparent,
@@ -59,22 +62,48 @@ class _HomeState extends State<Home> {
             ),
             CButton(
               onPressed: () {
-                scanConnexion();
+                getCodeAlert();
               },
               icon: Icons.abc_outlined,
               buttonText: "Use your Code",
-              buttonText2: "To view your CNI",
+              buttonText2: "to view your CNI",
               textColor: Config.colors.secondColor,
               buttonColor: Colors.transparent,
               borderColor: Colors.transparent,
-            ),
+            )
           ],
         )
       ],
     ));
   }
 
-  Future scanConnexion() => showDialog(
+  void scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+        "#ff6666",
+        "Cancel",
+        true,
+        ScanMode.QR,
+      );
+
+      if (!mounted || qrCode == "-1") return;
+
+      setState(() {
+        scannedQRCode = qrCode;
+      });
+      // verify the code by sending to the server
+      // ................
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const CardUI()));
+      // print("QRCode_Result:--");
+      // print(qrCode);
+    } on PlatformException {
+      scannedQRCode = "Failed to scan QR Code!";
+    }
+  }
+
+  Future getCodeAlert() => showDialog(
       context: context,
       builder: (context) => AlertDialog(
             title: const Text("Enter Code"),

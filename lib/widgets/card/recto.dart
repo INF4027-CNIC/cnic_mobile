@@ -1,5 +1,5 @@
 import 'package:cnic/config/config.dart';
-import 'package:cnic/widgets/card/component.dart';
+import 'package:cnic/widgets/card/components.dart';
 import 'package:flutter/material.dart';
 
 class RectoCard extends StatelessWidget {
@@ -25,8 +25,8 @@ class RectoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 385,
-      padding: const EdgeInsets.all(10),
+      width: 360,
+      padding: const EdgeInsets.only(left: 15, top: 10, right: 10, bottom: 10),
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(Config.arms),
@@ -82,7 +82,7 @@ class RectoCard extends StatelessWidget {
                 value: prenom,
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,10 +114,10 @@ class RectoCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 25),
                   Container(
-                    width: 140,
-                    height: 140,
+                    width: 110,
+                    height: 110,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(photo),
