@@ -57,7 +57,7 @@ class CardUI extends StatelessWidget {
               width: 370,
               height: 700,
               child: Padding(
-                padding: const EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 15, top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
