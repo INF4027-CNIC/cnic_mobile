@@ -7,9 +7,14 @@ import 'package:cnic/widgets/card/verso.dart';
 import 'package:cross_scroll/cross_scroll.dart';
 import 'package:flutter/material.dart';
 
-class CardUI extends StatelessWidget {
-  const CardUI({super.key});
+class CardPage extends StatefulWidget {
+  const CardPage({super.key});
+  static const routeName = "card-screens";
+  @override
+  State<CardPage> createState() => _CardPageState();
+}
 
+class _CardPageState extends State<CardPage> {
   @override
   Widget build(BuildContext context) {
     // infos du recto
