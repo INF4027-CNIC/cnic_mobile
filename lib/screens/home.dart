@@ -51,11 +51,9 @@ class _HomeState extends State<Home> {
   }
 
   // loading when checking the code
-  Future<dynamic> _loading() {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
+  Future _loading() => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
           contentPadding: const EdgeInsets.symmetric(horizontal: 15),
           scrollable: true,
           content: Column(
@@ -63,23 +61,19 @@ class _HomeState extends State<Home> {
               SizedBox(height: 20),
               CircularProgressIndicator(),
               SizedBox(height: 15),
-              AutoSizeText(
+              Text(
                 "Loading, please wait...",
                 style: TextStyle(
                   fontSize: 17,
                   fontFamily: "Nunito",
                   fontWeight: FontWeight.w600,
                 ),
-                minFontSize: 5.0,
-                textAlign: TextAlign.center,
               ),
               SizedBox(height: 20),
             ],
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
 
   // display error after checking the code
   _displayError(String message) {
@@ -87,7 +81,7 @@ class _HomeState extends State<Home> {
       backgroundColor: Config.colors.secondColor,
       duration: const Duration(seconds: 10),
       content: Container(
-        height: 210,
+        height: 280,
         child: Column(
           children: [
             Container(
@@ -120,6 +114,11 @@ class _HomeState extends State<Home> {
               ],
             ),
             const SizedBox(height: 25),
+            Text("Current code: $_code",
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    fontFamily: "Nunito", fontWeight: FontWeight.normal)),
+            const SizedBox(height: 10),
             Text(message,
                 style: const TextStyle(
                     fontFamily: "Nunito", fontWeight: FontWeight.normal)),
@@ -154,7 +153,10 @@ class _HomeState extends State<Home> {
                 }
               },
               onSaved: (newValue) {
-                _code = newValue!;
+                // _code = newValue!;
+                setState(() {
+                  _code = newValue!;
+                });
               },
               decoration: InputDecoration(
                 focusColor: Config.colors.primaryColor,
@@ -188,7 +190,7 @@ class _HomeState extends State<Home> {
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Config.colors.primaryColor),
-              child: const Text("NEXT"),
+              child: const Text("Next"),
             )
           ],
         ),
@@ -209,12 +211,11 @@ class _HomeState extends State<Home> {
       setState(() {
         _code = qrCode;
       });
-      // verify the code by sending to the server
-      _isChecking();
 
-      // Navigator.of(context).pushReplacementNamed(CardPage.routeName);
-      // print("QRCode_Result:--");
       print("Code obtenu: $_code");
+
+      // verify the code by sending to the server
+      // _isChecking();
     } on PlatformException {
       _code = "Failed to scan QR Code!";
     }
@@ -234,7 +235,7 @@ class _HomeState extends State<Home> {
                 color: const Color.fromARGB(255, 191, 213, 180),
               ),
               child: const AutoSizeText(
-                "Welcome to this application. Please select of these actions to view your CNI ",
+                "Welcome to this application. Please select one of these actions to view your CNI ",
                 style: TextStyle(
                   fontSize: 22,
                   fontFamily: "Nunito",
@@ -261,7 +262,7 @@ class _HomeState extends State<Home> {
                 getCodeAlert();
               },
               icon: Icons.abc_outlined,
-              buttonText: "Use your Code",
+              buttonText: "Use your U. Code",
               buttonText2: "to view your CNI",
               textColor: Config.colors.secondColor,
               buttonColor: Colors.transparent,

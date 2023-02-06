@@ -14,7 +14,7 @@ class VersoCard extends StatelessWidget {
     required this.dateDeliv,
     required this.dateExp,
     required this.poste,
-    required this.id,
+    required this.u_id,
     required this.id_2,
   }) : super(key: key);
 
@@ -22,12 +22,12 @@ class VersoCard extends StatelessWidget {
   final String pere;
   final String sp;
   final String adresse;
-  final String telephone;
+  final int telephone;
   final String autorite;
   final String dateDeliv;
   final String dateExp;
   final String poste;
-  final String id;
+  final int u_id;
   final String id_2;
 
   @override
@@ -70,9 +70,9 @@ class VersoCard extends StatelessWidget {
                 children: [
                   InfoTile(label: "S.P/S.M", value: sp),
                   InfoTile(label: "ADRESSE/ADDRESS", value: adresse),
-                  Text(
-                    telephone,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  InfoTile(
+                    label: "TÉLÉPHONE/PHONE",
+                    value: "$telephone",
                   ),
                 ],
               ),
@@ -101,13 +101,17 @@ class VersoCard extends StatelessWidget {
                       value: poste),
                   InfoTile(
                       label: "IDENTIFIANT UNIQUE/\nUNIQUE IDENTIFIER",
-                      value: id),
+                      value: "$u_id"),
                 ],
               ),
             ],
           ),
           const SizedBox(height: 7),
-          Center(child: Text(id_2)),
+          Center(
+              child: Text(
+            id_2,
+            style: const TextStyle(fontSize: 10),
+          )),
         ],
       ),
     );

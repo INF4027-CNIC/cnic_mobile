@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
     ]);
 
     LocalStorage userCheckedStorage = LocalStorage("saved_user_checked");
+    // LocalStorage userCode = LocalStorage("usercode");
 
     return ChangeNotifierProvider(
       create: (context) => ApiState(),
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
                 ),
               );
             }
-            if (userCheckedStorage.getItem("userCheckedStorage") == null) {
+            if (userCheckedStorage.getItem("saved_user_checked") == null) {
               return const Home();
             }
             return const CardPage();

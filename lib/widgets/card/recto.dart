@@ -12,10 +12,12 @@ class RectoCard extends StatelessWidget {
     required this.taille,
     required this.profession,
     required this.photo,
+    required this.dateNais,
   }) : super(key: key);
 
   final String nom;
   final String prenom;
+  final String dateNais;
   final String lieuNais;
   final String sexe;
   final double taille;
@@ -88,6 +90,10 @@ class RectoCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InfoTile(
+                        label: "DATE DE NAISSANCE/DATE OF BIRTH",
+                        value: "$dateNais",
+                      ),
+                      InfoTile(
                         label: "LIEU DE NAISSANCE/PLACE OF BIRTH",
                         value: lieuNais,
                       ),
@@ -108,10 +114,6 @@ class RectoCard extends StatelessWidget {
                         label: "PROFESSION/OCCUPATION",
                         value: profession,
                       ),
-                      const InfoTile(
-                        label: "SIGNATURE",
-                        value: "",
-                      ),
                     ],
                   ),
                   const SizedBox(width: 25),
@@ -121,9 +123,14 @@ class RectoCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(photo),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                       ),
-                      color: Colors.white,
+                      // border: Border.all(
+                      //   color: Config.colors.primaryColor,
+                      //   width: 1
+                      // ),
+                      // color: Colors.white,
+                      color: Colors.transparent,
                       borderRadius: BorderRadius.circular(6),
                     ),
                   )

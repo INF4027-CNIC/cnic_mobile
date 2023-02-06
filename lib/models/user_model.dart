@@ -7,13 +7,15 @@ class User {
   int? code;
   int? birthDate;
   String? birthPlace;
-  int? size;
+  double? size;
   String? gender;
   String? profession;
   String? address;
   String? fathername;
   String? mothername;
   String? cniCode;
+  String? cniDeliveryDate;
+  String? cniExpiryDate;
   String? createdAt;
   String? updatedAt;
 
@@ -33,6 +35,8 @@ class User {
       this.fathername,
       this.mothername,
       this.cniCode,
+      this.cniDeliveryDate,
+      this.cniExpiryDate,
       this.createdAt,
       this.updatedAt});
 
@@ -52,6 +56,8 @@ class User {
     fathername = json['fathername'];
     mothername = json['mothername'];
     cniCode = json['cniCode'];
+    cniDeliveryDate = json['cniDeliveryDate'];
+    cniExpiryDate = json['cniExpiryDate'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
@@ -73,6 +79,8 @@ class User {
     data['fathername'] = this.fathername;
     data['mothername'] = this.mothername;
     data['cniCode'] = this.cniCode;
+    data['cniDeliveryDate'] = this.cniDeliveryDate;
+    data['cniExpiryDate'] = this.cniExpiryDate;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     return data;

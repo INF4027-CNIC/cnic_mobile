@@ -62,6 +62,7 @@ class CButton extends StatelessWidget {
                     children: [
                       AutoSizeText(
                         buttonText,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: textColor,
                             fontSize: 20,
@@ -72,6 +73,7 @@ class CButton extends StatelessWidget {
                       const SizedBox(height: 5),
                       AutoSizeText(
                         buttonText2,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: textColor,
                             fontSize: 15,
