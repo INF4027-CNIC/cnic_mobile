@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
     ]);
 
     LocalStorage userCheckedStorage = LocalStorage("saved_user_checked");
-    // LocalStorage userCode = LocalStorage("usercode");
 
     return ChangeNotifierProvider(
       create: (context) => ApiState(),
@@ -58,14 +57,5 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
-    // return MaterialApp(
-    // title: "Cameroon National Id Card",
-    // theme: ThemeData(
-    //   primaryColor: Color.fromARGB(255, 1, 36, 3),
-    //   primarySwatch: Colors.green,
-    // ),
-    // debugShowCheckedModeBanner: false,
-    //   home: Home(),
-    // );
   }
 }

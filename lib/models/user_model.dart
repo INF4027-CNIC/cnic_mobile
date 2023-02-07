@@ -1,23 +1,23 @@
 class User {
-  String? id;
-  String? firstname;
-  String? lastname;
-  int? phone;
-  String? avatar;
-  int? code;
-  int? birthDate;
-  String? birthPlace;
-  double? size;
-  String? gender;
-  String? profession;
-  String? address;
-  String? fathername;
-  String? mothername;
-  String? cniCode;
-  String? cniDeliveryDate;
-  String? cniExpiryDate;
-  String? createdAt;
-  String? updatedAt;
+  dynamic id;
+  dynamic firstname;
+  dynamic lastname;
+  dynamic phone;
+  dynamic avatar;
+  dynamic code;
+  dynamic birthDate;
+  dynamic birthPlace;
+  dynamic size;
+  dynamic gender;
+  dynamic profession;
+  dynamic address;
+  dynamic fathername;
+  dynamic mothername;
+  dynamic cniCode;
+  dynamic cniDeliveryDate;
+  dynamic cniExpiryDate;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   User(
       {this.id,

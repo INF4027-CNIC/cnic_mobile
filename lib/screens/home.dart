@@ -146,7 +146,7 @@ class _HomeState extends State<Home> {
             child: TextFormField(
               keyboardType: TextInputType.number,
               controller: codeController,
-              // autofocus: true,
+              autofocus: true,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Enter a code please";
@@ -215,7 +215,7 @@ class _HomeState extends State<Home> {
       print("Code obtenu: $_code");
 
       // verify the code by sending to the server
-      // _isChecking();
+      _isChecking();
     } on PlatformException {
       _code = "Failed to scan QR Code!";
     }

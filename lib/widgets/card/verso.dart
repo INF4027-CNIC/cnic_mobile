@@ -18,17 +18,17 @@ class VersoCard extends StatelessWidget {
     required this.id_2,
   }) : super(key: key);
 
-  final String mere;
-  final String pere;
-  final String sp;
-  final String adresse;
-  final int telephone;
-  final String autorite;
-  final String dateDeliv;
-  final String dateExp;
-  final String poste;
-  final int u_id;
-  final String id_2;
+  final dynamic mere;
+  final dynamic pere;
+  final dynamic sp;
+  final dynamic adresse;
+  final dynamic telephone;
+  final dynamic autorite;
+  final dynamic dateDeliv;
+  final dynamic dateExp;
+  final dynamic poste;
+  final dynamic u_id;
+  final dynamic id_2;
 
   @override
   Widget build(BuildContext context) {
@@ -59,17 +59,17 @@ class VersoCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InfoTile(label: "PÈRE/FATHER", value: pere),
-                  InfoTile(label: "MÈRE/MOTHER", value: mere),
+                  InfoTile(label: "PÈRE/FATHER", value: "$adresse"),
+                  InfoTile(label: "MÈRE/MOTHER", value: "$mere"),
                   const SizedBox(height: 7),
-                  InfoTile(label: "AUTORITÉ/AUTHORITY", value: autorite),
+                  InfoTile(label: "AUTORITÉ/AUTHORITY", value: "$autorite"),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InfoTile(label: "S.P/S.M", value: sp),
-                  InfoTile(label: "ADRESSE/ADDRESS", value: adresse),
+                  InfoTile(label: "S.P/S.M", value: "$sp"),
+                  InfoTile(label: "ADRESSE/ADDRESS", value: "$adresse"),
                   InfoTile(
                     label: "TÉLÉPHONE/PHONE",
                     value: "$telephone",
@@ -87,10 +87,10 @@ class VersoCard extends StatelessWidget {
                 children: [
                   InfoTile(
                       label: "DATE DE DELIVRANCE/\nDATE OF ISSUE",
-                      value: dateDeliv),
+                      value: "$dateDeliv"),
                   InfoTile(
                       label: "DATE D\'EXPIRATION/\nDATE OF EXPIRY",
-                      value: dateExp),
+                      value: "$dateExp"),
                 ],
               ),
               Column(
@@ -98,7 +98,7 @@ class VersoCard extends StatelessWidget {
                 children: [
                   InfoTile(
                       label: "POSTE D\'IDENTIFICATION/\nIDENTIFICATION POST",
-                      value: poste),
+                      value: "$poste"),
                   InfoTile(
                       label: "IDENTIFIANT UNIQUE/\nUNIQUE IDENTIFIER",
                       value: "$u_id"),
@@ -109,7 +109,7 @@ class VersoCard extends StatelessWidget {
           const SizedBox(height: 7),
           Center(
               child: Text(
-            id_2,
+            "$id_2",
             style: const TextStyle(fontSize: 10),
           )),
         ],

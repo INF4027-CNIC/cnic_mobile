@@ -28,6 +28,7 @@ class ApiState with ChangeNotifier {
       if (data_tmp.containsKey('code')) {
         // userCode.setItem("usercode", data_tmp['code']);
         var data = json.decode(response.body);
+        // data_tmp['size'].toString();
         _currentUser = User.fromJson(data);
         userCheckedStorage.setItem(
             "saved_user_checked", json.encode(_currentUser));
@@ -40,6 +41,19 @@ class ApiState with ChangeNotifier {
       return "not checked";
     } catch (e) {
       print(e);
+
+      // var url = Uri.parse("$apiLink/users/find-by-code/$code");
+      // // var token =1673858285111
+      // //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2M2OTM4MjJkYjJhNzUyNjVlZjZkZjUiLCJlbWFpbCI6InN1cGVyLWFkbWluMEBnbWFpbC5jb20iLCJpYXQiOjE2NzU1OTkwMzQsImV4cCI6MTY3NTg1ODIzNH0.GQLHIukz9ng4OZg9hpoRfYPZNtIc2h-BgWr1FdNwS1o";
+      // var response = await http.get(
+      //   url,
+      //   // headers: {"Authorization": "bearer $token"},
+      // );
+      // var data_tmp = json.decode(response.body) as Map;
+      // if (data_tmp.containsKey('code')) {
+      //   print(data_tmp['size'].toString());
+      // }
+
       return "failed";
     }
   }

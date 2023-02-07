@@ -18,7 +18,6 @@ class CardPage extends StatefulWidget {
 
 class _CardPageState extends State<CardPage> {
   LocalStorage userCheckedStorage = LocalStorage("saved_user_checked");
-  User? _currentUser;
 
   String navbar_username = "";
 
@@ -28,7 +27,7 @@ class _CardPageState extends State<CardPage> {
   String dateNais = "";
   String lieuNais = "";
   String sexe = '';
-  double taille = 0.0;
+  dynamic taille;
   String profession = "";
   int code = 0;
   String photo = "assets/images/pp-tm.jpg";
@@ -100,42 +99,43 @@ class _CardPageState extends State<CardPage> {
     // var data = userCheckedStorage.getItem('saved_user_checked');
     Map<String, dynamic> data =
         json.decode(userCheckedStorage.getItem('saved_user_checked'));
-    User currentUser = User.fromJson(data);
 
     if (data.isNotEmpty) {
-      navbar_username = currentUser.firstname!;
+      User currentUser = User.fromJson(data);
+      navbar_username = currentUser.firstname ?? "inconu";
 
       // infos du recto
-      nom = currentUser.lastname!;
-      prenom = currentUser.firstname!;
-      dateNais = DateTime.fromMillisecondsSinceEpoch(currentUser.birthDate!,
+      nom = currentUser.firstname ?? "inconu";
+      prenom = currentUser.lastname ?? "inconu";
+      dateNais = DateTime.fromMillisecondsSinceEpoch(
+              currentUser.birthDate ?? "inconu",
               isUtc: true)
           .toString()
           .split(" ")[0];
-      lieuNais = currentUser.birthPlace!;
-      sexe = currentUser.gender!;
-      taille = currentUser.size!;
-      profession = currentUser.profession!;
-      code = currentUser.code!;
+      lieuNais = currentUser.birthPlace ?? "inconu";
+      sexe = currentUser.gender ?? "inconu";
+      taille = currentUser.size ?? "inconu";
+      profession = currentUser.profession ?? "inconu";
+      code = currentUser.code ?? "inconu";
       photo = "assets/images/default-user.png";
 
       // infos du verso
-      pere = currentUser.fathername!;
-      mere = currentUser.mothername!;
+      pere = currentUser.fathername ?? "inconu";
+      mere = currentUser.mothername ?? "inconu";
       sp = "000000";
-      adresse = currentUser.address!;
-      telephone = currentUser.phone!;
+      adresse = currentUser.address ?? "inconu";
+      telephone = currentUser.phone ?? "inconu";
       autorite = "Martin MABRGA NGUELE";
-      dateDeliv = currentUser.cniDeliveryDate!.substring(0, 7);
-      dateExp = currentUser.cniExpiryDate!.substring(0, 7);
+      dateDeliv = currentUser.cniDeliveryDate == null
+          ? "inconu"
+          : currentUser.cniDeliveryDate.substring(0, 7);
+      dateExp = currentUser.cniExpiryDate == null
+          ? "inconu"
+          : currentUser.cniExpiryDate.substring(0, 7);
       poste = "CE69";
-      u_id = currentUser.code!;
-      id_2 = currentUser.cniCode!;
+      u_id = currentUser.code ?? "inconu";
+      id_2 = currentUser.cniCode ?? "inconu";
     }
-
-    // print(currentUser.email);
-    // print("resultat :");
-    // print(userCheckedStorage.getItem('saved_user_checked'));
   }
 
   @override

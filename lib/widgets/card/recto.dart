@@ -15,14 +15,14 @@ class RectoCard extends StatelessWidget {
     required this.dateNais,
   }) : super(key: key);
 
-  final String nom;
-  final String prenom;
-  final String dateNais;
-  final String lieuNais;
-  final String sexe;
-  final double taille;
-  final String profession;
-  final String photo;
+  final dynamic nom;
+  final dynamic prenom;
+  final dynamic dateNais;
+  final dynamic lieuNais;
+  final dynamic sexe;
+  final dynamic taille;
+  final dynamic profession;
+  final dynamic photo;
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +77,11 @@ class RectoCard extends StatelessWidget {
               const SizedBox(height: 5),
               InfoTile(
                 label: "NOM/SURNAME",
-                value: nom,
+                value: "$nom",
               ),
               InfoTile(
                 label: "PRÉNOMS/GIVEN NAMES",
-                value: prenom,
+                value: "$prenom",
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -95,13 +95,13 @@ class RectoCard extends StatelessWidget {
                       ),
                       InfoTile(
                         label: "LIEU DE NAISSANCE/PLACE OF BIRTH",
-                        value: lieuNais,
+                        value: "$lieuNais",
                       ),
                       Row(
                         children: [
                           InfoTile(
                             label: "SEXE/SEX",
-                            value: sexe,
+                            value: "$sexe",
                           ),
                           const SizedBox(width: 15),
                           InfoTile(
@@ -112,7 +112,7 @@ class RectoCard extends StatelessWidget {
                       ),
                       InfoTile(
                         label: "PROFESSION/OCCUPATION",
-                        value: profession,
+                        value: "$profession",
                       ),
                     ],
                   ),
