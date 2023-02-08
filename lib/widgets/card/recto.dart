@@ -122,9 +122,14 @@ class RectoCard extends StatelessWidget {
                     height: 110,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(photo),
+                        image: NetworkImage(
+                            "https://cnic.onrender.com/" + photo.toString()),
                         fit: BoxFit.contain,
                       ),
+                      // image: DecorationImage(
+                      //   image: AssetImage(photo),
+                      //   fit: BoxFit.contain,
+                      // ),
                       // border: Border.all(
                       //   color: Config.colors.primaryColor,
                       //   width: 1

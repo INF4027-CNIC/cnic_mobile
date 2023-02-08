@@ -150,6 +150,8 @@ class _HomeState extends State<Home> {
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Enter a code please";
+                } else if (codeController.text.length < 13) {
+                  return "Code must be 13 characters";
                 }
               },
               onSaved: (newValue) {

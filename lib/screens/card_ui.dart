@@ -8,6 +8,7 @@ import 'package:cnic/widgets/card/verso.dart';
 import 'package:cross_scroll/cross_scroll.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:restart_app/restart_app.dart';
 
 class CardPage extends StatefulWidget {
   const CardPage({super.key});
@@ -30,7 +31,7 @@ class _CardPageState extends State<CardPage> {
   dynamic taille;
   String profession = "";
   int code = 0;
-  String photo = "assets/images/pp-tm.jpg";
+  String photo = "https://i.pravatar.cc/150?img=35";
 
   // infos du verso
   String pere = "";
@@ -92,6 +93,7 @@ class _CardPageState extends State<CardPage> {
   void logoutNow() {
     userCheckedStorage.clear();
     print("Logout successfully");
+    // Restart.restartApp(webOrigin: Home.routeName);
     Navigator.of(context).pushReplacementNamed(Home.routeName);
   }
 
@@ -117,7 +119,7 @@ class _CardPageState extends State<CardPage> {
       taille = currentUser.size ?? "inconu";
       profession = currentUser.profession ?? "inconu";
       code = currentUser.code ?? "inconu";
-      photo = "assets/images/default-user.png";
+      photo = currentUser.avatar ?? "https://i.pravatar.cc/150?img=35";
 
       // infos du verso
       pere = currentUser.fathername ?? "inconu";
