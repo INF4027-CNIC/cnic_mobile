@@ -1,12 +1,12 @@
 import 'package:cnic/api_state/api_satate.dart';
 import 'package:cnic/config/config.dart';
 import 'package:cnic/screens/card_ui.dart';
+import 'package:cnic/screens/help.dart';
 import 'package:cnic/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -19,6 +19,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // late TextEditingController controller;
   final TextEditingController codeController = TextEditingController();
+  bool isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
+  }
 
   final _formCode = GlobalKey<FormState>();
   String _code = "";
@@ -52,6 +58,7 @@ class _HomeState extends State<Home> {
 
   // loading when checking the code
   Future _loading() => showDialog(
+        barrierDismissible: false,
         context: context,
         builder: (context) => AlertDialog(
           contentPadding: const EdgeInsets.symmetric(horizontal: 15),
@@ -78,18 +85,28 @@ class _HomeState extends State<Home> {
   // display error after checking the code
   _displayError(String message) {
     final snackBar = SnackBar(
-      backgroundColor: Config.colors.secondColor,
-      duration: const Duration(seconds: 10),
+      // backgroundColor: Config.colors.secondColor,
+      backgroundColor: Colors.transparent,
+      duration: const Duration(minutes: 2),
+      padding: const EdgeInsets.all(0),
       content: Container(
+        padding: const EdgeInsets.only(top: 10),
+        decoration: BoxDecoration(
+          color: Config.colors.secondColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(36),
+            topRight: Radius.circular(36),
+          ),
+        ),
         height: 280,
         child: Column(
           children: [
             Container(
-              height: 6,
-              width: 120,
+              height: 5,
+              width: 100,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
-                color: Get.isDarkMode ? Colors.grey[500] : Colors.grey[300],
+                color: Colors.grey[300],
               ),
             ),
             const SizedBox(height: 25),
@@ -114,14 +131,20 @@ class _HomeState extends State<Home> {
               ],
             ),
             const SizedBox(height: 25),
-            Text("Current code: $_code",
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                    fontFamily: "Nunito", fontWeight: FontWeight.normal)),
+            Text(
+              "Current code: $_code",
+              overflow: TextOverflow.clip,
+              style: const TextStyle(
+                  fontFamily: "Nunito", fontWeight: FontWeight.normal),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 10),
-            Text(message,
-                style: const TextStyle(
-                    fontFamily: "Nunito", fontWeight: FontWeight.normal)),
+            Text(
+              message,
+              style: const TextStyle(
+                  fontFamily: "Nunito", fontWeight: FontWeight.normal),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 15),
             ElevatedButton(
               onPressed: () {
@@ -138,6 +161,7 @@ class _HomeState extends State<Home> {
 
   // get the code (via a form) and and call "_isChecking" method
   Future getCodeAlert() => showDialog(
+        barrierDismissible: false,
         context: context,
         builder: (context) => AlertDialog(
           title: const Text("Enter Code"),
@@ -150,8 +174,10 @@ class _HomeState extends State<Home> {
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Enter a code please";
-                } else if (codeController.text.length < 13) {
+                } else if (codeController.text.length != 13) {
                   return "Code must be 13 characters";
+                } else if (!isNumeric(codeController.text)) {
+                  return "Code must contain only digits";
                 }
               },
               onSaved: (newValue) {
@@ -170,15 +196,26 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 labelText: "Enter your code",
-                hintText: "Enter your code...",
+                hintText: "13 digits expected",
                 hintStyle: const TextStyle(
                   color: Colors.grey,
-                  fontWeight: FontWeight.w600,
+                  fontFamily: "Nunito",
+                  // fontWeight: FontWeight.w600,
                 ),
               ),
             ),
           ),
           actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+              child: const Text(
+                "Cancel",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
             ElevatedButton(
               onPressed: () {
                 var isValid = _formCode.currentState!.validate();
@@ -192,7 +229,10 @@ class _HomeState extends State<Home> {
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Config.colors.primaryColor),
-              child: const Text("Next"),
+              child: const Text(
+                "Next",
+                style: TextStyle(color: Colors.white),
+              ),
             )
           ],
         ),
@@ -224,55 +264,237 @@ class _HomeState extends State<Home> {
   }
 
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: ListView(
-      children: [
-        Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: const Color.fromARGB(255, 191, 213, 180),
+      appBar: AppBar(
+        backgroundColor: Config.colors.primaryColor,
+        toolbarHeight: 0,
+      ),
+      body: Column(
+        children: [
+          // green top bar
+          Container(
+            height: 250,
+            width: size.width,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Config.colors.primaryColor,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(36),
+                bottomRight: Radius.circular(36),
               ),
-              child: const AutoSizeText(
-                "Welcome to this application. Please select one of these actions to view your CNI ",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontFamily: "Nunito",
-                  fontWeight: FontWeight.w600,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 120,
+                  height: 120,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(25, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: Image.asset(Config.arms).image,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
                 ),
-                minFontSize: 5.0,
-                textAlign: TextAlign.center,
+                const SizedBox(height: 20),
+                const AutoSizeText(
+                  "CAMEROON NATIONAL\n IDENTITY CARD",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontFamily: "Nunito",
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
+          ),
+
+          // rest of the page
+          Expanded(
+            child: ListView(
+              children: [
+                // help button
+                Container(
+                  height: 50,
+                  margin: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(80, 158, 158, 158),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      // Navigator.of(context)
+                      //     .pushReplacementNamed(HelpPage.routeName);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (builder) => HelpPage()));
+                      print("TM");
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.help_outline),
+                        SizedBox(width: 15),
+                        Text("HOW IT WORKS"),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // horizontal line
+                Container(
+                  margin: const EdgeInsets.only(
+                      top: 10, bottom: 5, left: 20, right: 20),
+                  height: 1,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(129, 158, 158, 158),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+
+                // text indication
+                Container(
+                  margin: const EdgeInsets.all(20),
+                  child: const AutoSizeText(
+                    "Select one of these actions to view the CNI ",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: "Nunito",
+                      fontWeight: FontWeight.w600,
+                    ),
+                    minFontSize: 5.0,
+                  ),
+                ),
+
+                // two methods
+                Column(
+                  children: [
+                    CButton(
+                      onPressed: () {
+                        scanQRCode();
+                      },
+                      icon: Icons.qr_code_scanner_outlined,
+                      buttonText: "SCAN THE QR Code",
+                      buttonText2: "Scan the qr code image",
+                      textColor: Config.colors.secondColor,
+                      buttonColor: Colors.transparent,
+                      borderColor: Colors.transparent,
+                      borderRadius: 10,
+                    ),
+                    CButton(
+                      onPressed: () {
+                        getCodeAlert();
+                      },
+                      icon: Icons.onetwothree_outlined,
+                      buttonText: "USE UNIQUE CODE",
+                      buttonText2: "Enter the numeric code",
+                      textColor: Config.colors.secondColor,
+                      buttonColor: Colors.transparent,
+                      borderColor: Colors.transparent,
+                      borderRadius: 10,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Config.colors.primaryColor,
+        child: Container(
+          // color: Config.colors.primaryColor,
+          // height: 40,
+          height: 5,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // const Text(
+              //   "PEACE - WORK - FATHERLAND",
+              //   style: TextStyle(
+              //       color: Colors.white,
+              //       fontSize: 10,
+              //       fontFamily: "Nunito",
+              //       fontWeight: FontWeight.w600),
+              // ),
+              // const SizedBox(height: 5),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Container(
+              //       height: 3,
+              //       width: 45,
+              //       margin:
+              //           const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+              //       decoration: BoxDecoration(
+              //         color: const Color.fromARGB(255, 0, 255, 8),
+              //         borderRadius: BorderRadius.circular(6),
+              //       ),
+              //     ),
+              //     Container(
+              //       height: 3,
+              //       width: 45,
+              //       margin:
+              //           const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+              //       decoration: BoxDecoration(
+              //         color: Colors.red,
+              //         borderRadius: BorderRadius.circular(6),
+              //       ),
+              //     ),
+              //     Container(
+              //       height: 3,
+              //       width: 45,
+              //       margin:
+              //           const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+              //       decoration: BoxDecoration(
+              //         color: Colors.yellow,
+              //         borderRadius: BorderRadius.circular(6),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 5,
+                    width: size.width * 0.33,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 15, 189, 20),
+                    ),
+                  ),
+                  Container(
+                    height: 5,
+                    width: size.width * 0.33,
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                    ),
+                  ),
+                  Container(
+                    height: 5,
+                    width: size.width * 0.33,
+                    decoration: const BoxDecoration(
+                      color: Colors.yellow,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            CButton(
-              onPressed: () {
-                scanQRCode();
-              },
-              icon: Icons.qr_code_scanner_outlined,
-              buttonText: "Scan the QR Code",
-              buttonText2: "to view your CNI",
-              textColor: Config.colors.secondColor,
-              buttonColor: Colors.transparent,
-              borderColor: Colors.transparent,
-              borderRadius: 10,
-            ),
-            CButton(
-              onPressed: () {
-                getCodeAlert();
-              },
-              icon: Icons.abc_outlined,
-              buttonText: "Use your U. Code",
-              buttonText2: "to view your CNI",
-              textColor: Config.colors.secondColor,
-              buttonColor: Colors.transparent,
-              borderColor: Colors.transparent,
-            ),
-          ],
-        )
-      ],
-    ));
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

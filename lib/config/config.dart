@@ -6,6 +6,11 @@ class Config {
   static String flag = "assets/images/flag.jpg";
   static String arms = "assets/images/Coat_of_arms_of_Cameroon.svg.png";
   static String logo = "assets/images/logo_splash.png";
+
+  // image for help page
+  static String register = "assets/illustrations/register.png";
+  static String qrCode = "assets/illustrations/QR Code.png";
+  static String card = "assets/illustrations/id-card.png";
 }
 
 class _Color {

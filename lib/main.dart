@@ -2,6 +2,7 @@ import 'package:cnic/api_state/api_satate.dart';
 import 'package:cnic/config/config.dart';
 import 'package:cnic/screens/card_ui.dart';
 import 'package:cnic/screens/error_page.dart';
+import 'package:cnic/screens/help.dart';
 import 'package:cnic/screens/home.dart';
 import 'package:cnic/screens/spalsh_screen.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Config.colors.primaryColor,
           primarySwatch: Colors.green,
+          useMaterial3: true,
         ),
         home: FutureBuilder(
           future: userCheckedStorage.ready,
@@ -54,6 +56,7 @@ class MyApp extends StatelessWidget {
           Home.routeName: (context) => const Home(),
           CardPage.routeName: (context) => const CardPage(),
           ErrorPage.routeName: (context) => const ErrorPage(),
+          HelpPage.routeName: (context) => const HelpPage(),
         },
       ),
     );

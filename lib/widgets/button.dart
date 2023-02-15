@@ -28,65 +28,69 @@ class CButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-          color: buttonColor ?? Config.colors.primaryColor,
-          border: Border.all(
-            color: borderColor ?? Config.colors.secondColor,
+        color: Colors.white,
+        // border: Border.all(
+        //     // color: Config.colors.secondColor,
+        //     ),
+        borderRadius: BorderRadius.circular(borderRadius ?? 0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 5,
           ),
-          borderRadius: BorderRadius.circular(borderRadius ?? 0)),
-      child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: onPressed,
-            child: Container(
-                child: Row(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Config.colors.primaryColor,
+        ],
+      ),
+      child: InkWell(
+        onTap: onPressed,
+        child: Container(
+            child: Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(right: 15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Config.colors.primaryColor,
+              ),
+              height: 60,
+              width: 60,
+              child: Icon(
+                icon,
+                size: 40,
+                color: Colors.white,
+              ),
+            ),
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoSizeText(
+                    buttonText,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: textColor,
+                        fontSize: 17,
+                        fontFamily: "Nunito",
+                        fontWeight: FontWeight.w900),
                   ),
-                  height: 60,
-                  width: 60,
-                  child: Icon(
-                    icon,
-                    size: 40,
-                    color: Colors.white,
+                  const SizedBox(height: 5),
+                  AutoSizeText(
+                    buttonText2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: textColor,
+                        fontSize: 14,
+                        fontFamily: "Nunito",
+                        fontWeight: FontWeight.w600),
                   ),
-                ),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AutoSizeText(
-                        buttonText,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: textColor,
-                            fontSize: 20,
-                            fontFamily: "Nunito",
-                            fontWeight: FontWeight.w700),
-                        minFontSize: 5.0,
-                      ),
-                      const SizedBox(height: 5),
-                      AutoSizeText(
-                        buttonText2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: textColor,
-                            fontSize: 15,
-                            fontFamily: "Nunito",
-                            fontWeight: FontWeight.w600),
-                        minFontSize: 5.0,
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            )),
-          )),
+                ],
+              ),
+            )
+          ],
+        )),
+      ),
     );
   }
 }
