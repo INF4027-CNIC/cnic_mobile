@@ -71,16 +71,16 @@ class InfoTile extends StatelessWidget {
             fontSize: 8.5,
           ),
         ),
-        const SizedBox(height: 3),
+        const SizedBox(height: 0),
         Text(
           value,
           style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 12,
+            fontSize: 13,
           ),
         ),
-        const SizedBox(height: 7),
+        const SizedBox(height: 9),
       ],
     );
   }

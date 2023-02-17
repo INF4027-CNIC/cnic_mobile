@@ -26,6 +26,16 @@ class _HomeState extends State<Home> {
     return double.tryParse(s) != null;
   }
 
+  bool isValid(String code) {
+    if (code.isEmpty || code.length != 13 || !isNumeric(code)) {
+      return false;
+      // return "Enter a code please";
+      // return "Code must be 13 characters";
+      // return "Code must contain only digits";
+    }
+    return true;
+  }
+
   final _formCode = GlobalKey<FormState>();
   String _code = "";
 
@@ -40,7 +50,7 @@ class _HomeState extends State<Home> {
       case "checked":
         codeController.clear();
         Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed(CardPage.routeName);
+        Navigator.pushReplacementNamed(context, CardPage.routeName);
         break;
       case "not checked":
         print("User Not Found With This Code");
@@ -82,6 +92,137 @@ class _HomeState extends State<Home> {
         ),
       );
 
+  // display error after scanning
+  _displayErrorScanning(String scannedCode) {
+    final snackBar = SnackBar(
+      // backgroundColor: Config.colors.secondColor,
+      backgroundColor: Colors.transparent,
+      duration: const Duration(minutes: 2),
+      padding: const EdgeInsets.all(0),
+      content: Container(
+        padding: const EdgeInsets.only(top: 10),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 102, 33, 28),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(36),
+            topRight: Radius.circular(36),
+          ),
+        ),
+        height: 280,
+        child: Column(
+          children: [
+            Container(
+              height: 4,
+              width: 80,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: Colors.grey[300],
+              ),
+            ),
+            const SizedBox(height: 25),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(Config.logo),
+                      fit: BoxFit.cover,
+                    ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                const AutoSizeText("Cameroon National \nIdentity Card",
+                    style: TextStyle(fontSize: 15, fontFamily: "Nunito"))
+              ],
+            ),
+            const SizedBox(height: 15),
+            Text(
+              "Scanned code: ${(scannedCode.isNotEmpty) ? scannedCode : 'empty'}",
+              overflow: TextOverflow.clip,
+              style: const TextStyle(
+                  fontFamily: "Nunito", fontWeight: FontWeight.normal),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(54, 244, 67, 54),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const AutoSizeText(
+                "The qr code is empty, or contains non numeric code, or the code do not contains 13 digits. Please change the qr code and try again !",
+                style: TextStyle(
+                    fontFamily: "Nunito", fontWeight: FontWeight.normal),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: const [
+                  //     Icon(Icons.looks_one_outlined),
+                  //     AutoSizeText(
+                  //       "The qr code is empty, or contains non numeric code, or the code do not contains 13 digits. Please change the qr code and try again !",
+                  //       style: TextStyle(
+                  //           fontFamily: "Nunito",
+                  //           fontWeight: FontWeight.normal),
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: const [
+                  //     Icon(Icons.looks_two_outlined),
+                  //     Text(
+                  //       "The qr code contains non numeric code",
+                  //       style: TextStyle(
+                  //           fontFamily: "Nunito",
+                  //           fontWeight: FontWeight.normal),
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: const [
+                  //     Icon(Icons.looks_3_outlined),
+                  //     Text(
+                  //       "The code do not contains 13 digits",
+                  //       style: TextStyle(
+                  //           fontFamily: "Nunito",
+                  //           fontWeight: FontWeight.normal),
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //   ],
+                  // ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+              child: const Text("OK"),
+            )
+          ],
+        ),
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   // display error after checking the code
   _displayError(String message) {
     final snackBar = SnackBar(
@@ -102,8 +243,8 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Container(
-              height: 5,
-              width: 100,
+              height: 4,
+              width: 80,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 color: Colors.grey[300],
@@ -249,6 +390,11 @@ class _HomeState extends State<Home> {
       );
 
       if (!mounted || qrCode == "-1") return;
+      if (!isValid(qrCode)) {
+        _displayErrorScanning(qrCode);
+
+        return;
+      }
 
       setState(() {
         _code = qrCode;
@@ -338,9 +484,10 @@ class _HomeState extends State<Home> {
                     onTap: () {
                       // Navigator.of(context)
                       //     .pushReplacementNamed(HelpPage.routeName);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (builder) => HelpPage()));
-                      print("TM");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => const HelpPage()));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

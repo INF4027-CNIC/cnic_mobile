@@ -7,8 +7,8 @@ import 'package:cnic/widgets/card/recto.dart';
 import 'package:cnic/widgets/card/verso.dart';
 import 'package:cross_scroll/cross_scroll.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:restart_app/restart_app.dart';
 
 class CardPage extends StatefulWidget {
   const CardPage({super.key});
@@ -32,6 +32,7 @@ class _CardPageState extends State<CardPage> {
   String profession = "";
   int code = 0;
   String photo = "https://i.pravatar.cc/150?img=35";
+  //String photo = "assets/images/pp-tm.jpg";
 
   // infos du verso
   String pere = "";
@@ -54,8 +55,8 @@ class _CardPageState extends State<CardPage> {
           content: Container(
             child: const Text(
               "If you disconnect, you will have to provide your 'code' the next time to access your NIC",
-              style: TextStyle(
-                  fontFamily: 'Nunito', fontWeight: FontWeight.normal),
+              style:
+                  TextStyle(fontFamily: 'Nunito', fontWeight: FontWeight.w600),
             ),
           ),
           actions: [
@@ -70,7 +71,10 @@ class _CardPageState extends State<CardPage> {
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Config.colors.primaryColor),
-                      child: const Text("Cancel"),
+                      child: const Text(
+                        "Cancel",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                     const SizedBox(width: 15),
                     ElevatedButton(
@@ -79,7 +83,10 @@ class _CardPageState extends State<CardPage> {
                       },
                       style:
                           ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                      child: const Text("Logout"),
+                      child: const Text(
+                        "Logout",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     )
                   ],
                 ),
@@ -90,11 +97,18 @@ class _CardPageState extends State<CardPage> {
         ),
       );
 
-  void logoutNow() {
+  void logoutNow() async {
     userCheckedStorage.clear();
     print("Logout successfully");
     // Restart.restartApp(webOrigin: Home.routeName);
-    Navigator.of(context).pushReplacementNamed(Home.routeName);
+    // Navigator.pushReplacementNamed(context, Home.routeName);
+    // SystemNavigator.pop();
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      },
+    );
   }
 
   void initgetSavedInfo() {
@@ -120,6 +134,7 @@ class _CardPageState extends State<CardPage> {
       profession = currentUser.profession ?? "inconu";
       code = currentUser.code ?? "inconu";
       photo = currentUser.avatar ?? "https://i.pravatar.cc/150?img=35";
+      // photo = "assets/images/pp-tm.jpg";
 
       // infos du verso
       pere = currentUser.fathername ?? "inconu";
@@ -127,7 +142,6 @@ class _CardPageState extends State<CardPage> {
       sp = "000000";
       adresse = currentUser.address ?? "inconu";
       telephone = currentUser.phone ?? "inconu";
-      autorite = "Martin MABRGA NGUELE";
       dateDeliv = currentUser.cniDeliveryDate == null
           ? "inconu"
           : currentUser.cniDeliveryDate.substring(0, 7);
@@ -149,91 +163,116 @@ class _CardPageState extends State<CardPage> {
 
   @override
   Widget build(BuildContext context) {
-    // // infos du recto
-    // String nom = "KANA ZANLEFACK";
-    // String prenom = "BLONDELLE";
-    // String lieuNais = "DSCHANG";
-    // String sexe = 'F';
-    // double taille = 1.75;
-    // String profession = "ÉTUDIANTE";
-    // String photo = "assets/images/pp-tm.jpg";
-
-    // // infos du verso
-    // String pere = "PAPA ZANLEFACK";
-    // String mere = "MAMA ZANLEFACK";
-    // String sp = "880000";
-    // String adresse = "YDE - ESSOS";
-    // String telephone = "656789174";
-    // String autorite = "Martin MABRGA NGUELE";
-    // String dateDeliv = "20.12.2019";
-    // String dateExp = "20.12.2029";
-    // String poste = "CE69";
-    // String id = "20190478956321457";
-    // String id_2 = "0123456789";
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Welcome $navbar_username",
-            style: const TextStyle(
-                fontFamily: 'Nunito', fontWeight: FontWeight.w600),
-          ),
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          elevation: 0,
-          actions: [
-            IconButton(
-              onPressed: () {
-                confirmLogout();
-              },
-              icon: const Icon(Icons.logout_rounded),
-            ),
-            IconButton(
-              icon: const Icon(Icons.file_download_outlined),
-              onPressed: () {
-                // dowload the NIC
-              },
-            )
-          ],
+      appBar: AppBar(
+        title: const Text(
+          // "Welcome $navbar_username",
+          "Welcome",
+          style: TextStyle(fontFamily: 'Nunito', fontWeight: FontWeight.w600),
         ),
-        body: CrossScroll(
-          dimColor: Colors.transparent,
-          hoverColor: Colors.transparent,
-          child: SizedBox(
-              width: 379,
-              height: 700,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    RectoCard(
-                      nom: nom,
-                      prenom: prenom,
-                      dateNais: dateNais,
-                      lieuNais: lieuNais,
-                      sexe: sexe,
-                      taille: taille,
-                      profession: profession,
-                      photo: photo,
+        backgroundColor: Config.colors.primaryColor,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () {
+              confirmLogout();
+            },
+            icon: const Icon(
+              Icons.logout_outlined,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(width: 2),
+          // IconButton(
+          //   icon: const Icon(
+          //     Icons.file_download_outlined,
+          //     color: Colors.white,
+          //   ),
+          //   onPressed: () {
+          //     // dowload the NIC
+          //   },
+          // )
+        ],
+      ),
+      body: CrossScroll(
+        dimColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        child: SizedBox(
+            width: 380,
+            height: 690,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, top: 10, right: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  RectoCard(
+                    nom: nom,
+                    prenom: prenom,
+                    dateNais: dateNais,
+                    lieuNais: lieuNais,
+                    sexe: sexe,
+                    taille: taille,
+                    profession: profession,
+                    photo: photo,
+                  ),
+                  const SizedBox(height: 10),
+                  VersoCard(
+                    mere: mere,
+                    pere: pere,
+                    sp: sp,
+                    adresse: adresse,
+                    telephone: telephone,
+                    autorite: autorite,
+                    dateDeliv: dateDeliv,
+                    dateExp: dateExp,
+                    poste: poste,
+                    u_id: u_id,
+                    id_2: id_2,
+                  )
+                ],
+              ),
+            )),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Config.colors.primaryColor,
+        child: SizedBox(
+          height: 5,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 5,
+                    width: size.width * 0.33,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 15, 189, 20),
                     ),
-                    const SizedBox(height: 10),
-                    VersoCard(
-                      mere: mere,
-                      pere: pere,
-                      sp: sp,
-                      adresse: adresse,
-                      telephone: telephone,
-                      autorite: autorite,
-                      dateDeliv: dateDeliv,
-                      dateExp: dateExp,
-                      poste: poste,
-                      u_id: u_id,
-                      id_2: id_2,
-                    )
-                  ],
-                ),
-              )),
-        ));
+                  ),
+                  Container(
+                    height: 5,
+                    width: size.width * 0.33,
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                    ),
+                  ),
+                  Container(
+                    height: 5,
+                    width: size.width * 0.33,
+                    decoration: const BoxDecoration(
+                      color: Colors.yellow,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

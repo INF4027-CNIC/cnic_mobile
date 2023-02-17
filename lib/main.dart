@@ -5,6 +5,7 @@ import 'package:cnic/screens/error_page.dart';
 import 'package:cnic/screens/help.dart';
 import 'package:cnic/screens/home.dart';
 import 'package:cnic/screens/spalsh_screen.dart';
+import 'package:cnic/screens/test_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localstorage/localstorage.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           CardPage.routeName: (context) => const CardPage(),
           ErrorPage.routeName: (context) => const ErrorPage(),
           HelpPage.routeName: (context) => const HelpPage(),
+          TestPage.routrName: (context) => const TestPage(),
         },
       ),
     );

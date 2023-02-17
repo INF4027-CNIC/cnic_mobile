@@ -27,8 +27,8 @@ class RectoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 360,
-      padding: const EdgeInsets.only(left: 15, top: 10, right: 10, bottom: 10),
+      width: 363,
+      padding: const EdgeInsets.only(left: 10, top: 15, right: 10, bottom: 15),
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(Config.arms),
@@ -119,22 +119,25 @@ class RectoCard extends StatelessWidget {
                   const SizedBox(width: 25),
                   Container(
                     width: 110,
-                    height: 110,
+                    height: 120,
+                    margin: const EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Config.colors.primaryColor, width: 2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.red.withOpacity(1),
+                          blurRadius: 8,
+                        ),
+                      ],
                       image: DecorationImage(
+                        // image:
+                        // NetworkImage("https://i.pravatar.cc/150?img=35"),
+                        // image: AssetImage("assets/images/pp-tm.jpg"),
                         image: NetworkImage(
                             "https://cnic.onrender.com/" + photo.toString()),
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                       ),
-                      // image: DecorationImage(
-                      //   image: AssetImage(photo),
-                      //   fit: BoxFit.contain,
-                      // ),
-                      // border: Border.all(
-                      //   color: Config.colors.primaryColor,
-                      //   width: 1
-                      // ),
-                      // color: Colors.white,
                       color: Colors.transparent,
                       borderRadius: BorderRadius.circular(6),
                     ),
