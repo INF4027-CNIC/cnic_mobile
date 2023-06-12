@@ -64,25 +64,25 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['firstname'] = this.firstname;
-    data['lastname'] = this.lastname;
-    data['phone'] = this.phone;
-    data['avatar'] = this.avatar;
-    data['code'] = this.code;
-    data['birthDate'] = this.birthDate;
-    data['birthPlace'] = this.birthPlace;
-    data['size'] = this.size;
-    data['gender'] = this.gender;
-    data['profession'] = this.profession;
-    data['address'] = this.address;
-    data['fathername'] = this.fathername;
-    data['mothername'] = this.mothername;
-    data['cniCode'] = this.cniCode;
-    data['cniDeliveryDate'] = this.cniDeliveryDate;
-    data['cniExpiryDate'] = this.cniExpiryDate;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    data['id'] = id;
+    data['firstname'] = firstname;
+    data['lastname'] = lastname;
+    data['phone'] = phone;
+    data['avatar'] = avatar;
+    data['code'] = code;
+    data['birthDate'] = birthDate;
+    data['birthPlace'] = birthPlace;
+    data['size'] = size;
+    data['gender'] = gender;
+    data['profession'] = profession;
+    data['address'] = address;
+    data['fathername'] = fathername;
+    data['mothername'] = mothername;
+    data['cniCode'] = cniCode;
+    data['cniDeliveryDate'] = cniDeliveryDate;
+    data['cniExpiryDate'] = cniExpiryDate;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     return data;
   }
 }

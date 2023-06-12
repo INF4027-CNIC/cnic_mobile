@@ -14,7 +14,7 @@ class VersoCard extends StatelessWidget {
     required this.dateDeliv,
     required this.dateExp,
     required this.poste,
-    required this.u_id,
+    required this.userId,
     required this.id_2,
   }) : super(key: key);
 
@@ -27,7 +27,7 @@ class VersoCard extends StatelessWidget {
   final dynamic dateDeliv;
   final dynamic dateExp;
   final dynamic poste;
-  final dynamic u_id;
+  final dynamic userId;
   final dynamic id_2;
 
   @override
@@ -105,7 +105,7 @@ class VersoCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(1),
                       ),
                       child: Text(
-                        "$u_id",
+                        "$userId",
                         style: const TextStyle(
                           color: Color.fromARGB(131, 0, 0, 0),
                           fontWeight: FontWeight.w600,
