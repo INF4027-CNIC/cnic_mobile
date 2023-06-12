@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:cnic/config/config.dart';
 import 'package:cnic/models/user_model.dart';
-import 'package:cnic/screens/home.dart';
 import 'package:cnic/widgets/card/recto.dart';
 import 'package:cnic/widgets/card/verso.dart';
 import 'package:cross_scroll/cross_scroll.dart';
@@ -44,7 +43,7 @@ class _CardPageState extends State<CardPage> {
   String dateDeliv = "20.12.2019";
   String dateExp = "20.12.2029";
   String poste = "CE69";
-  int u_id = 0;
+  int userid = 0;
   String id_2 = "";
 
   Future confirmLogout() => showDialog(
@@ -52,7 +51,7 @@ class _CardPageState extends State<CardPage> {
         builder: (context) => AlertDialog(
           // contentPadding: const EdgeInsets.only(bottom: 15),
           title: const Text("Log out ?"),
-          content: Container(
+          content: SizedBox(
             child: const Text(
               "If you disconnect, you will have to provide your 'code' the next time to access your NIC",
               style:
@@ -149,7 +148,7 @@ class _CardPageState extends State<CardPage> {
           ? "inconu"
           : currentUser.cniExpiryDate.substring(0, 7);
       poste = "CE69";
-      u_id = currentUser.code ?? "inconu";
+      userid = currentUser.code ?? "inconu";
       id_2 = currentUser.cniCode ?? "inconu";
     }
   }
@@ -229,7 +228,7 @@ class _CardPageState extends State<CardPage> {
                     dateDeliv: dateDeliv,
                     dateExp: dateExp,
                     poste: poste,
-                    u_id: u_id,
+                    userId: userid,
                     id_2: id_2,
                   )
                 ],
